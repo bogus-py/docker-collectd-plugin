@@ -1,0 +1,1 @@
+# docker-collectd-plugin
