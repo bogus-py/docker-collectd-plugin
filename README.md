@@ -48,3 +48,7 @@ Here you can reference almost any element from docker inspect output. The except
 
 #### BaseURL
 #### Debug
+
+### Considerations
+**type:**
+To keep things simple and since the setup this was initially developed for didn't require any different type is always **gauge**
