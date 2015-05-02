@@ -124,6 +124,13 @@ def maintain_collector_dict():
     global collector_dict
     containers=docker_client.containers()
     sleep_time=0
+
+    #cleanup orphaned entries
+    for cid in collector_dict.keys():
+        if not collector_dict[cid].is_alive():
+            if config['Debug']: collectd.info('docker_stats plugin: read.cleanup container %s' % cid )
+            del collector_dict[cid]
+
     for container in containers:
         cid = container["Id"][0:12]
         if cid not in collector_dict:
@@ -132,11 +139,6 @@ def maintain_collector_dict():
             collector_dict[cid].start()
             #it takes about 1sec for a newly started Collector thread to get initial stats
             sleep_time=1
-    #cleanup orphaned entries
-    for cid in collector_dict.keys():
-        if not collector_dict[cid].is_alive():
-            if config['Debug']: collectd.info('docker_stats plugin: read.cleanup container %s' % cid )
-            del collector_dict[cid]
 
     time.sleep(sleep_time)
 
