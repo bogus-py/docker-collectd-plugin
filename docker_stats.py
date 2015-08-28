@@ -155,7 +155,7 @@ def shutdown_callback():
 def init_callback():
     global docker_client
     if config['Debug']: collectd.info('docker_stats plugin: init')
-    docker_client = Client(base_url=config['BaseURL'])
+    docker_client = Client(base_url=config['BaseURL'], version='auto')
     maintain_collector_dict()
 
 def config_callback(conf):
