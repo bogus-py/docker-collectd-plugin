@@ -84,6 +84,9 @@ def dispatch_value(stat_obj, key, plugin_instance, values):
     val.type_instance = key
     val.plugin_instance = plugin_instance
     val.values = values
+    if val.values[0] == None:
+        #we don't have any values to report, so just skip this one
+        return
     if config['Debug']: collectd.info('docker_stats plugin: dispatch_value %s.%s %i' % (plugin_instance, key, val.values[0]))
     val.dispatch()
 
